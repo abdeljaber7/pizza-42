@@ -40,9 +40,7 @@ const configureClient = async () => {
 const login = () => {
   try {
     console.log("Logging in");
-    auth0.authorize({
-      returnTo: window.location.origin
-    });
+    auth0.authorize();
   } catch (err) {
     console.log("Log in failed", err);
   }
