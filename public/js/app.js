@@ -19,24 +19,6 @@ const configureClient = async () => {
 };
 
 //Starts the authentication flow
-/*const login = async (targetUrl) => {
-  try {
-    console.log("Logging in", targetUrl);
-
-    const options = {
-      redirect_uri: window.location.origin
-    };
-
-    if (targetUrl) {
-      options.appState = { targetUrl };
-    }
-
-    await auth0.loginWithRedirect(options);
-  } catch (err) {
-    console.log("Log in failed", err);
-  }
-};*/
-
 const login = async () => {
   try {
     console.log("Logging in");
