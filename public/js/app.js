@@ -54,14 +54,14 @@ const logout = () => {
 // Checks to see if the user is authenticated. 
 // If so, `fn` is executed. 
 // Otherwise, the user is prompted to log in
-const requireAuth = async (fn, targetUrl) => {
+const requireAuth = async (fn) => {
   const isAuthenticated = await auth0.isAuthenticated();
 
   if (isAuthenticated) {
     return fn();
   }
 
-  return login(targetUrl);
+  return login("https://mousa-pizza42.herokuapp.com");
 };
 
 // Place the order using the API and the uth token
