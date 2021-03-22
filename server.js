@@ -89,6 +89,4 @@ process.on("SIGINT", function() {
 });
 
 // Listen on port 3000
-//app.listen(3000, () => console.log("Pizza 42 is up!\n Access application on http://localhost:3000"));
-
-module.exports = app;
+app.listen(3000, () => console.log("Pizza 42 is up!\n Access application on https://mousa-pizza42.herokuapp.com:3000"));
