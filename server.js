@@ -4,7 +4,6 @@ const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const { join } = require("path");
-//const authConfig = require("./auth_config.json");
 const authConfig = {
   "domain": "mousa-pizza42.us.auth0.com",
   "clientId": "5e9fZXswf0BFhqqGzcsAz4ke9zJ8iBHx",
@@ -16,11 +15,6 @@ const app = express();
 // Orders DB
 let orders =[];
 let orderTime =[];
-
-
-/*if (!authConfig.domain || !authConfig.audience) {
-  throw "Please make sure that auth_config.json is in place and populated";
-}*/
 
 app.use(morgan("dev"));
 app.use(helmet());
@@ -68,8 +62,8 @@ app.get(`/orders/order-history`, checkJwt, (req, res) => {
   });
 });
 
-app.get("/auth_config.json", (req, res) => {
-  res.sendFile(join(__dirname, "auth_config.json"));
+app.get("/auth_config", (req, res) => {
+  res.send(authConfig);
 });
 
 app.get("/*", (req, res) => {

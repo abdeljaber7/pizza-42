@@ -2,7 +2,7 @@
 let auth0 = null;
 
 //Retrieves the auth configuration from the server
-const fetchAuthConfig = () => fetch("/auth_config.json");
+const fetchAuthConfig = () => fetch("/auth_config");
 
 //Initializes the Auth0 client
 const configureClient = async () => {
