@@ -4,7 +4,12 @@ const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const { join } = require("path");
-const authConfig = require("./auth_config.json");
+//const authConfig = require("./auth_config.json");
+const authConfig = {
+  "domain": "mousa-pizza42.us.auth0.com",
+  "clientId": "5e9fZXswf0BFhqqGzcsAz4ke9zJ8iBHx",
+  "audience": "https://mousa-pizza42.herokuapp.com"
+};
 
 const app = express();
 
@@ -13,9 +18,9 @@ let orders =[];
 let orderTime =[];
 
 
-if (!authConfig.domain || !authConfig.audience) {
+/*if (!authConfig.domain || !authConfig.audience) {
   throw "Please make sure that auth_config.json is in place and populated";
-}
+}*/
 
 app.use(morgan("dev"));
 app.use(helmet());
