@@ -18,7 +18,7 @@ const configureClient = async () => {
   });
 };
 
-let targetUrl = "https://mousa-pizza42.herokuapp.com"
+let targetUrl = "https://mousa-pizza42.herokuapp.com";
 
 //Starts the authentication flow
 const login = async (targetUrl) => {
