@@ -19,10 +19,19 @@ const configureClient = async () => {
 };
 
 //Starts the authentication flow
-const login = async () => {
+const login = async (targetUrl) => {
   try {
-    console.log("Logging in");
-    await auth0.loginWithRedirect("https://mousa-pizza42.herokuapp.com");
+    console.log("Logging in", targetUrl);
+
+    const options = {
+      redirect_uri: window.location.origin
+    };
+
+    if (targetUrl) {
+      options.appState = { targetUrl };
+    }
+
+    await auth0.loginWithRedirect(options);
   } catch (err) {
     console.log("Log in failed", err);
   }
@@ -50,7 +59,7 @@ const requireAuth = async (fn, targetUrl) => {
     return fn();
   }
 
-  return login();
+  return login(targetUrl);
 };
 
 // Place the order using the API and the uth token
@@ -151,6 +160,11 @@ window.onload = async () => {
     console.log("> Parsing redirect");
     try {
       const result = await auth0.handleRedirectCallback();
+
+      if (result.appState && result.appState.targetUrl) {
+        showContentFromUrl(result.appState.targetUrl);
+      }
+
       console.log("Logged in!");
     } catch (err) {
       console.log("Error parsing redirect:", err);
