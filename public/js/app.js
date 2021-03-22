@@ -19,19 +19,10 @@ const configureClient = async () => {
 };
 
 //Starts the authentication flow
-const login = async (targetUrl) => {
+const login = async () => {
   try {
-    console.log("Logging in", targetUrl);
-
-    const options = {
-      redirect_uri: window.location.origin
-    };
-
-    if (targetUrl) {
-      options.appState = { targetUrl };
-    }
-
-    await auth0.loginWithRedirect(options);
+    console.log("Logging in");
+    await auth0.loginWithRedirect("https://mousa-pizza42.herokuapp.com");
   } catch (err) {
     console.log("Log in failed", err);
   }
@@ -49,11 +40,9 @@ const logout = () => {
   }
 };
 
-/**
- * Checks to see if the user is authenticated. If so, `fn` is executed. Otherwise, the user
- * is prompted to log in
- * @param {*} fn The function to execute if the user is logged in
- */
+// Checks to see if the user is authenticated. 
+// If so, `fn` is executed. 
+// Otherwise, the user is prompted to log in
 const requireAuth = async (fn, targetUrl) => {
   const isAuthenticated = await auth0.isAuthenticated();
 
@@ -61,7 +50,7 @@ const requireAuth = async (fn, targetUrl) => {
     return fn();
   }
 
-  return login(targetUrl);
+  return login();
 };
 
 // Place the order using the API and the uth token
@@ -162,11 +151,6 @@ window.onload = async () => {
     console.log("> Parsing redirect");
     try {
       const result = await auth0.handleRedirectCallback();
-
-      if (result.appState && result.appState.targetUrl) {
-        showContentFromUrl(result.appState.targetUrl);
-      }
-
       console.log("Logged in!");
     } catch (err) {
       console.log("Error parsing redirect:", err);
