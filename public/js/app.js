@@ -19,7 +19,7 @@ const configureClient = async () => {
 };
 
 //Starts the authentication flow
-const login = async (targetUrl) => {
+/*const login = async (targetUrl) => {
   try {
     console.log("Logging in", targetUrl);
 
@@ -32,6 +32,17 @@ const login = async (targetUrl) => {
     }
 
     await auth0.loginWithRedirect(options);
+  } catch (err) {
+    console.log("Log in failed", err);
+  }
+};*/
+
+const login = async () => {
+  try {
+    console.log("Logging in");
+    await auth0.loginWithRedirect({
+      redirect_uri: window.location.origin
+  }); 
   } catch (err) {
     console.log("Log in failed", err);
   }
@@ -59,7 +70,7 @@ const requireAuth = async (fn, targetUrl) => {
     return fn();
   }
 
-  return login(targetUrl);
+  return login();
 };
 
 // Place the order using the API and the uth token
