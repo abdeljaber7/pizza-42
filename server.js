@@ -55,16 +55,22 @@ app.get(`/orders/new-order`, checkJwt, (req, res) => {
 
 //Orders History Endpoint - Scoped Endpoint, needs authentication + scope checkScopes,
 app.get(`/orders/order-history`, checkJwt, function(req, res){
-  const email = req.query.email;
-  let history =[];
-  for(let i=0; i<orders.length; i++){
-    if(orders[i]==email){
-      history.push(orderTime[i])
+  if(checkScopes){
+    const email = req.query.email;
+    let history =[];
+    for(let i=0; i<orders.length; i++){
+      if(orders[i]==email){
+        history.push(orderTime[i])
+      }
     }
-  }
+    res.send({
+      msg: `${history}`
+    });
+  } else {
   res.send({
-    msg: `${history}`
+    msg: `You don't have the right scopes`
   });
+  } 
 });
 
 app.get("/*", (req, res) => {
