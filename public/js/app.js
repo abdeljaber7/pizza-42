@@ -14,7 +14,7 @@ const configureClient = async () => {
     client_id: config.clientId,
     audience: config.audience,
     //Setting the scope
-    scope: 'openid profile email'
+    scope: 'openid profile email read:logs'
   });
 };
 

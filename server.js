@@ -54,7 +54,7 @@ app.get(`/orders/new-order`, checkJwt, (req, res) => {
 });
 
 //Orders History Endpoint - Scoped Endpoint, needs authentication + scope 
-app.get(`/orders/order-history`, checkScopes, (req, res) =>{
+app.get(`/orders/order-history`, checkJwt, checkScopes, (req, res) =>{
   const email = req.query.email;
   let history =[];
   for(let i=0; i<orders.length; i++){
