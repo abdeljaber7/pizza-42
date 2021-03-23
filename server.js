@@ -32,7 +32,6 @@ const checkJwt = jwt({
   algorithms: ["RS256"]
 });
 
-
 //Auth configuration Endpoint - Public Endpoint, doesn't need authentication
 app.get("/auth_config", (req, res) => {
   res.send(authConfig);

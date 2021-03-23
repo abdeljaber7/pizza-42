@@ -1,3 +1,5 @@
+const { json } = require("express");
+
 // The Auth0 client, initialized in configureClient()
 let auth0 = null;
 
@@ -92,12 +94,11 @@ const orderHistory = async () => {
       }
     });
 
-    const responseOut = await response.text();
-    const responseCheck = responseOut.text();
+    const responseCheck = await response.text();
     if(responseCheck === 'Insufficient scope'){
       window.alert(responseCheck);
     } else{
-      const responseData = responseOut.json();
+      const responseData = JSON.parse(responseCheck);
       const responseElement = document.getElementById("order-history-result");
 
       responseElement.innerText = JSON.stringify(responseData, {}, 2);
