@@ -55,7 +55,7 @@ const requireAuth = async (fn, targetUrl) => {
   return login();
 };
 
-// Place the order using the API and the uth token
+// Place the order using the API and the auth token
 const newOrder = async () => {
   const user = await auth0.getUser();
   // Checks email is verified before accepting orders
@@ -81,7 +81,7 @@ const newOrder = async () => {
     }
 };
 
-//API to fetch the orders history
+//API call to fetch the orders history
 const orderHistory = async () => {
   const user = await auth0.getUser();
   try {
