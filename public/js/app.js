@@ -86,11 +86,11 @@ const orderHistory = async () => {
   const user = await auth0.getUser();
   try {
     const token = await auth0.getTokenSilently();
-    const response = await fetch(`/orders/order-history?email=${user.email}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    const response = await {
+      method: 'GET',
+      url: `${auth0.audience} /orders/order-history?email=${user.email}`,
+      headers: {authorization: `Bearer ${token}`}
+    }
 
     const responseData = await response.json();
     const responseElement = document.getElementById("order-history-result");

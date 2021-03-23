@@ -1,9 +1,7 @@
 const express = require("express");
-const morgan = require("morgan");
-const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const jwtAuthz = require('express-jwt-authz');
+const jwtAuthz = require("express-jwt-authz");
 const { join } = require("path");
 const authConfig = {
   "domain": "mousa-pizza42.us.auth0.com",
@@ -20,8 +18,6 @@ const app = express();
 let orders =[];
 let orderTime =[];
 
-app.use(morgan("dev"));
-app.use(helmet());
 app.use(express.static(join(__dirname, "public")));
 
 const checkJwt = jwt({
