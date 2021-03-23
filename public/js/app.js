@@ -91,8 +91,9 @@ const orderHistory = async () => {
         Authorization: `Bearer ${token}`
       }
     });
+    let responseCheck;
     try{
-      const responseCheck = await response.text();
+      responseCheck = await response.text();
       const responseData = JSON.parse(responseCheck);
       const responseElement = document.getElementById("order-history-result");
 
