@@ -86,7 +86,6 @@ const orderHistory = async () => {
   const user = await auth0.getUser();
   try {
     const token = await auth0.getTokenSilently();
-    console.log(token);
     const response = await fetch(`/orders/order-history?email=${user.email}`, {
       headers: {
         Authorization: `Bearer ${token}`
