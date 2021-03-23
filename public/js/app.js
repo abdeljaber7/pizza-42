@@ -84,6 +84,7 @@ const newOrder = async () => {
 //API to fetch the orders history
 const orderHistory = async () => {
   const user = await auth0.getUser();
+  console.log(user);
   try {
     const token = await auth0.getTokenSilently();
     const response = await fetch(`/orders/order-history?email=${user.email}`, {
