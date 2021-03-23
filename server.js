@@ -10,6 +10,9 @@ const authConfig = {
   "audience": "https://mousa-pizza42.herokuapp.com"
 };
 
+//Check Scope for log fetching
+const checkScopes = jwtAuthz([ 'read:logs' ]);
+
 const app = express();
 
 // Orders DB
@@ -49,17 +52,24 @@ app.get(`/orders/new-order`, checkJwt, (req, res) => {
 });
 
 //Orders History API
-app.get(`/orders/order-history`, checkJwt, (req, res) => {
-  const email = req.query.email;
-  let history =[];
-  for(let i=0; i<orders.length; i++){
-    if(orders[i]==email){
-      history.push(orderTime[i])
+app.get(`/orders/order-history`, checkJwt, checkScopes, function(req, res){
+  if(checkScopes){
+    const email = req.query.email;
+    let history =[];
+    for(let i=0; i<orders.length; i++){
+      if(orders[i]==email){
+        history.push(orderTime[i])
+      }
     }
+    res.send({
+      msg: `${history}`
+    });
+  } else{
+    res.send({
+      msg: `You don't have the right scopes to get the history`
+    });
   }
-  res.send({
-    msg: `${history}`
-  });
+  
 });
 
 app.get("/auth_config", (req, res) => {
