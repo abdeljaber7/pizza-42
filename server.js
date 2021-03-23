@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
 const jwtAuthz = require("express-jwt-authz");
+const jwksRsa = require("jwks-rsa");
 const { join } = require("path");
 const authConfig = {
   "domain": "mousa-pizza42.us.auth0.com",
@@ -50,23 +50,16 @@ app.get(`/orders/new-order`, checkJwt, (req, res) => {
 
 //Orders History API
 app.get(`/orders/order-history`, checkJwt, checkScopes, function(req, res){
-  if(checkScopes){
-    const email = req.query.email;
-    let history =[];
-    for(let i=0; i<orders.length; i++){
-      if(orders[i]==email){
-        history.push(orderTime[i])
-      }
+  const email = req.query.email;
+  let history =[];
+  for(let i=0; i<orders.length; i++){
+    if(orders[i]==email){
+      history.push(orderTime[i])
     }
-    res.send({
-      msg: `${history}`
-    });
-  } else{
-    res.send({
-      msg: `You don't have the right scopes to get the history`
-    });
   }
-  
+  res.send({
+    msg: `${history}`
+  });
 });
 
 app.get("/auth_config", (req, res) => {
