@@ -50,13 +50,13 @@ app.get(`/orders/new-order`, checkJwt, (req, res) => {
 
 //Orders History API
 app.get(`/orders/order-history`, checkJwt, checkScopes, function(req, res){
-  const email = req.query.email;
-  let history =[];
-  for(let i=0; i<orders.length; i++){
+  //const email = req.query.email;
+  let history =[123];
+  /*for(let i=0; i<orders.length; i++){
     if(orders[i]==email){
       history.push(orderTime[i])
     }
-  }
+  }*/
   res.send({
     msg: `${history}`
   });
