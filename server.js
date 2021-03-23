@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
+const jwtAuthz = require('express-jwt-authz');
 const { join } = require("path");
 const authConfig = {
   "domain": "mousa-pizza42.us.auth0.com",
