@@ -1,5 +1,3 @@
-const { json } = require("express");
-
 // The Auth0 client, initialized in configureClient()
 let auth0 = null;
 
@@ -93,19 +91,18 @@ const orderHistory = async () => {
         Authorization: `Bearer ${token}`
       }
     });
-
-    const responseCheck = await response.text();
-    if(responseCheck === 'Insufficient scope'){
-      window.alert(responseCheck);
-    } else{
+    try{
+      const responseCheck = await response.text();
       const responseData = JSON.parse(responseCheck);
       const responseElement = document.getElementById("order-history-result");
 
       responseElement.innerText = JSON.stringify(responseData, {}, 2);
-
       document.querySelectorAll("pre code").forEach(hljs.highlightBlock);
-
       eachElement(".result-block", (c) => c.classList.add("show"));
+    } catch (e){
+      if(responseCheck === 'Insufficient scope'){
+        window.alert(responseCheck);
+      }
     }
   } catch (e) {
     console.error(e);
