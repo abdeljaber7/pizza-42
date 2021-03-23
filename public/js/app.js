@@ -92,14 +92,15 @@ const orderHistory = async () => {
       }
     });
 
-    const responseData = await response.json();
-    const responseElement = document.getElementById("order-history-result");
+    const responseData = await response.text();
+    console.log(responseData);
+    /*const responseElement = document.getElementById("order-history-result");
 
     responseElement.innerText = JSON.stringify(responseData, {}, 2);
 
     document.querySelectorAll("pre code").forEach(hljs.highlightBlock);
 
-    eachElement(".result-block", (c) => c.classList.add("show"));
+    eachElement(".result-block", (c) => c.classList.add("show"));*/
   } catch (e) {
     console.error(e);
   }
