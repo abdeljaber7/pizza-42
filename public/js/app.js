@@ -92,15 +92,19 @@ const orderHistory = async () => {
       }
     });
 
-    const responseData = await response.text();
-    console.log(responseData);
-    /*const responseElement = document.getElementById("order-history-result");
+    const responseCheck = await response.text();
+    if(responseCheck === 'Insufficient scope'){
+      window.alert(responseCheck);
+    } else{
+      const responseData = await response.json();
+      const responseElement = document.getElementById("order-history-result");
 
-    responseElement.innerText = JSON.stringify(responseData, {}, 2);
+      responseElement.innerText = JSON.stringify(responseData, {}, 2);
 
-    document.querySelectorAll("pre code").forEach(hljs.highlightBlock);
+      document.querySelectorAll("pre code").forEach(hljs.highlightBlock);
 
-    eachElement(".result-block", (c) => c.classList.add("show"));*/
+      eachElement(".result-block", (c) => c.classList.add("show"));
+    }
   } catch (e) {
     console.error(e);
   }
