@@ -92,11 +92,12 @@ const orderHistory = async () => {
       }
     });
 
-    const responseCheck = await response.text();
+    const responseOut = await response.text();
+    const responseCheck = responseOut.text();
     if(responseCheck === 'Insufficient scope'){
       window.alert(responseCheck);
     } else{
-      const responseData = await response.json();
+      const responseData = responseOut.json();
       const responseElement = document.getElementById("order-history-result");
 
       responseElement.innerText = JSON.stringify(responseData, {}, 2);
