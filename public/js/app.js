@@ -88,7 +88,7 @@ const orderHistory = async () => {
     const token = await auth0.getTokenSilently();
     const response = await {
       method: 'GET',
-      url: `${auth0.audience} /orders/order-history?email=${user.email}`,
+      url: `/orders/order-history?email=${user.email}`,
       headers: {authorization: `Bearer ${token}`}
     }
 
