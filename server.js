@@ -53,15 +53,15 @@ app.get(`/orders/new-order`, checkJwt, (req, res) => {
   });
 });
 
-//Orders History Endpoint - Scoped Endpoint, needs authentication + scope
-app.get(`/orders/order-history`, checkJwt, checkScopes, function(req, res){
-  //const email = req.query.email;
-  let history =["Great Job"];
-  /*for(let i=0; i<orders.length; i++){
+//Orders History Endpoint - Scoped Endpoint, needs authentication + scope checkScopes,
+app.get(`/orders/order-history`, checkJwt, function(req, res){
+  const email = req.query.email;
+  let history =[];
+  for(let i=0; i<orders.length; i++){
     if(orders[i]==email){
       history.push(orderTime[i])
     }
-  }*/
+  }
   res.send({
     msg: `${history}`
   });

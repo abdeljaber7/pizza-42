@@ -86,7 +86,7 @@ const orderHistory = async () => {
   const user = await auth0.getUser();
   try {
     const token = await auth0.getTokenSilently();
-    const response = await fetch(`/orders/order-history`, {
+    const response = await fetch(`/orders/order-history?email=${user.email}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -104,17 +104,6 @@ const orderHistory = async () => {
     console.error(e);
   }
 };
-
-/*var orderHistory = {
-  method: `POST`,
-  url: `/orders/order-history`,
-  headers: {authorization: `Bearer ${token}`},
-  body: {email: '${user.email}'}
-};
-
-?email=${user.email}
-
-*/
 
 // Will run when page finishes loading
 window.onload = async () => {
