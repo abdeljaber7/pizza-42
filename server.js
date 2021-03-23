@@ -10,12 +10,12 @@ const authConfig = {
   "audience": "https://mousa-pizza42.herokuapp.com"
 };
 
-//Check Scope for log fetching
-const checkScopes = jwtAuthz(['read:logs']);
-
 // Orders DB
 let orders =[];
 let orderTime =[];
+
+//Check Scope for log fetching
+const checkScopes = jwtAuthz(['read:logs']);
 
 app.use(express.static(join(__dirname, "public")));
 
@@ -54,7 +54,7 @@ app.get(`/orders/new-order`, checkJwt, (req, res) => {
 });
 
 //Orders History Endpoint - Scoped Endpoint, needs authentication + scope 
-app.get(`/orders/order-history`, checkJwt, checkScopes, (req, res) =>{
+app.get(`/orders/order-history`, checkScopes, (req, res) =>{
   const email = req.query.email;
   let history =[];
   for(let i=0; i<orders.length; i++){
