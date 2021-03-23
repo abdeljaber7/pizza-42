@@ -82,26 +82,11 @@ const newOrder = async () => {
 };
 
 //API to fetch the orders history
-var orderHistory = require("axios").default;
-
-var options = {
-  method: `POST`,
-  url: `/orders/order-history`,
-  headers: {authorization: `Bearer ${token}`},
-  body: {email: '${user.email}'}
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
-});
-
-/*const orderHistory = async () => {
+const orderHistory = async () => {
   const user = await auth0.getUser();
   try {
     const token = await auth0.getTokenSilently();
-    const response = await fetch(`/orders/order-history?email=${user.email}`, {
+    const response = await fetch(`/orders/order-history`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -118,7 +103,18 @@ axios.request(options).then(function (response) {
   } catch (e) {
     console.error(e);
   }
-};*/
+};
+
+/*var orderHistory = {
+  method: `POST`,
+  url: `/orders/order-history`,
+  headers: {authorization: `Bearer ${token}`},
+  body: {email: '${user.email}'}
+};
+
+?email=${user.email}
+
+*/
 
 // Will run when page finishes loading
 window.onload = async () => {
