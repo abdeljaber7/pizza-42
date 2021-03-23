@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 const jwt = require("express-jwt");
 const jwtAuthz = require("express-jwt-authz");
 const jwksRsa = require("jwks-rsa");
@@ -10,9 +11,7 @@ const authConfig = {
 };
 
 //Check Scope for log fetching
-const checkScopes = jwtAuthz([ 'read:logs' ]);
-
-const app = express();
+const checkScopes = jwtAuthz(['read:logs']);
 
 // Orders DB
 let orders =[];
@@ -33,7 +32,13 @@ const checkJwt = jwt({
   algorithms: ["RS256"]
 });
 
-//New Order API
+
+//Auth configuration Endpoint - Public Endpoint, doesn't need authentication
+app.get("/auth_config", (req, res) => {
+  res.send(authConfig);
+});
+
+//New Order Endopoint - Private Endpoint, needs authentication
 app.get(`/orders/new-order`, checkJwt, (req, res) => {
   const email = req.query.email;
   //log Orders
@@ -48,9 +53,9 @@ app.get(`/orders/new-order`, checkJwt, (req, res) => {
   });
 });
 
-//Orders History API
-app.get(`/orders/order-history`, checkJwt, checkScopes, function(req, res){
-  const email = req.query.email;
+//Orders History Endpoint - Scoped Endpoint, needs authentication + scope
+app.post(`/orders/order-history`, checkJwt, checkScopes, function(req, res){
+  const email = req.body.email;
   let history =[];
   for(let i=0; i<orders.length; i++){
     if(orders[i]==email){
@@ -60,10 +65,6 @@ app.get(`/orders/order-history`, checkJwt, checkScopes, function(req, res){
   res.send({
     msg: `${history}`
   });
-});
-
-app.get("/auth_config", (req, res) => {
-  res.send(authConfig);
 });
 
 app.get("/*", (req, res) => {
